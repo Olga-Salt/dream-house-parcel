@@ -26,6 +26,8 @@
     "sass": "^1.43.3"
   },
   "dependencies": {
+    "axios": "^0.24.0",
+    "js": "^0.1.0",
     "lodash.debounce": "^4.0.8",
     "notiflix": "^3.1.0",
     "simplelightbox": "^2.9.0",
