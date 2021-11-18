@@ -6,10 +6,11 @@ export default class PixabayApiService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
+    this.pageSize = 200;
   }
 
   fetchPhotos() {
-    const url = `${BASE_URL}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=3&page=${this.page}`;
+    const url = `${BASE_URL}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${this.pageSize}&page=${this.page}`;
     this.page += 1;
     return axios.get(url);
 
