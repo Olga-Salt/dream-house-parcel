@@ -4,10 +4,18 @@ import LoadMoreBtn from './js/components/load-more-btn';
 import createPhotosMurkup from './js/create-photos-murkup';
 import axios from 'axios';
 import { Notify } from 'notiflix';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const formRef = document.querySelector('.search-form');
 const cardContainer = document.querySelector('.gallery');
 const totalHits = 500;
+let lightbox = new SimpleLightbox('.gallery a');
+
+// let lightbox = new SimpleLightbox('.gallery a', {
+//   captionsData: 'alt',
+//   captionDelay: 250,
+// });
 
 // написать функцию которая ходит на api за фотками. сделать класс
 // написать функцию рендера разметки карточек
@@ -49,6 +57,8 @@ function fetchPhotos() {
     .fetchPhotos()
     .then(photos => {
       renderPhotoCards(photos.data.hits);
+      callLightBoxGallery();
+      findTotalHits(photos.data.totalHits);
       loadMoreBtn.show();
       isEmptyPhotoArray(photos.data.hits);
       isEndPhotoArray();
@@ -79,4 +89,13 @@ function isEndPhotoArray() {
     loadMoreBtn.hide();
     Notify.failure("We're sorry, but you've reached the end of search results.");
   }
+}
+
+function findTotalHits(totalHits) {
+  return Notify.info(`Hooray! We found ${totalHits} images.`);
+}
+
+function callLightBoxGallery() {
+  let lightbox = new SimpleLightbox('.gallery a');
+  lightbox.refresh();
 }

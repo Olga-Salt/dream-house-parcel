@@ -6,7 +6,7 @@ export default class PixabayApiService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
-    this.pageSize = 200;
+    this.pageSize = 40;
   }
 
   fetchPhotos() {
