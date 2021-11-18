@@ -1,4 +1,5 @@
-import './css/styles.css';
+// import './css/styles.css';
+import './sass/main.scss';
 import PixabayApiService from './js/pixabay-api';
 import LoadMoreBtn from './js/components/load-more-btn';
 import createPhotosMurkup from './js/create-photos-murkup';
