@@ -1,0 +1,28 @@
+.load-more {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  font-size: 15px;
+
+  width: 120px;
+  height: 35px;
+
+  border-radius: 4px;
+  cursor: pointer;
+
+  border-color: #2e2eaa;
+
+  transition: background-color var(--animation-duration) var(--timing-function);
+  transition: color var(--animation-duration) var(--timing-function);
+
+
+    &:hover{
+        background-color: #2e2eaa;
+        color: #ffff;
+    }
+}
+
+.load-more.is-hidden {
+  display: none;
+}
