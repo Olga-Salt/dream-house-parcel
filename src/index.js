@@ -3,7 +3,7 @@ import './sass/main.scss';
 import PixabayApiService from './js/pixabay-api';
 import LoadMoreBtn from './js/components/load-more-btn';
 import createPhotosMurkup from './js/create-photos-murkup';
-import axios from 'axios';
+// import axios from 'axios';
 import { Notify } from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
@@ -26,7 +26,7 @@ let lightbox = new SimpleLightbox('.gallery a');
 // использовать asinc await
 
 const pixabayApiService = new PixabayApiService();
-
+let smoothScroll = false;
 const loadMoreBtn = new LoadMoreBtn({
   selector: '.load-more',
   hidden: true,
@@ -51,7 +51,7 @@ function onSearchSubmit(e) {
   fetchPhotos();
 }
 
-function fetchPhotos() {
+function fetchPhotos(e) {
   loadMoreBtn.hide();
 
   pixabayApiService
@@ -70,7 +70,6 @@ function fetchPhotos() {
 }
 
 function renderPhotoCards(photos) {
-  // console.log(photos);
   cardContainer.insertAdjacentHTML('beforeend', createPhotosMurkup(photos));
 }
 
@@ -90,13 +89,29 @@ function isEndPhotoArray() {
     loadMoreBtn.hide();
     Notify.failure("We're sorry, but you've reached the end of search results.");
   }
+  if (cardContainer.children.length > 40) {
+    addSmoothScroll();
+  }
 }
 
 function findTotalHits(totalHits) {
-  return Notify.info(`Hooray! We found ${totalHits} images.`);
+  if (totalHits > 0) {
+    return Notify.info(`Hooray! We found ${totalHits} images.`);
+  }
 }
 
 function callLightBoxGallery() {
   let lightbox = new SimpleLightbox('.gallery a');
   lightbox.refresh();
+}
+
+function addSmoothScroll() {
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
 }
